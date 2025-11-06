@@ -64,7 +64,7 @@ const MenteeDashboard = () => {
         
         if (!previousTask) return false;
         
-        if (previousTask.deadline === null) return true;
+        if (previousTask.deadline === null || previousTask.deadline === 0) return true;
         
         const previousTaskStatus = mySubmissions[previousTaskId];
         return previousTaskStatus === 'Submitted' || previousTaskStatus === 'Reviewed';

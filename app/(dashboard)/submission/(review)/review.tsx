@@ -125,32 +125,33 @@ const SubmissionReview = ({
   // We must map to `task_no` to decide ordering/locking.
   const isTaskUnlocked = (currentTaskId: string): boolean => {
     if (isMentor) return true; // Mentors can access any task
+    //For now toggling all task to be unlocked
+    return true;
+    // const currentId = parseInt(currentTaskId);
+    // const currentTask = localTasks.find(t => t.id === currentId);
+    // // If we can't find the current task, be conservative and allow access
+    // if (!currentTask) return true;
 
-    const currentId = parseInt(currentTaskId);
-    const currentTask = localTasks.find(t => t.id === currentId);
-    // If we can't find the current task, be conservative and allow access
-    if (!currentTask) return true;
+    // const currentTaskNo = typeof currentTask.task_no === 'number' ? currentTask.task_no : 0;
+    // // First task (task_no === 0) or missing task_no should be unlocked
+    // if (currentTaskNo <= 0) return true;
 
-    const currentTaskNo = typeof currentTask.task_no === 'number' ? currentTask.task_no : 0;
-    // First task (task_no === 0) or missing task_no should be unlocked
-    if (currentTaskNo <= 0) return true;
+    // const previousTaskNo = currentTaskNo - 1;
+    // const previousTask = localTasks.find(task => task.task_no === previousTaskNo);
 
-    const previousTaskNo = currentTaskNo - 1;
-    const previousTask = localTasks.find(task => task.task_no === previousTaskNo);
+    // // If previous task doesn't exist, allow (can't enforce lock)
+    // if (!previousTask) {
+    //   return true;
+    // }
 
-    // If previous task doesn't exist, allow (can't enforce lock)
-    if (!previousTask) {
-      return true;
-    }
+    // // If previous task has no deadline, don't lock the next task
+    // if (previousTask.deadline === null || previousTask.deadline === 0) {
+    //   return true;
+    // }
 
-    // If previous task has no deadline, don't lock the next task
-    if (previousTask.deadline === null || previousTask.deadline === 0) {
-      return true;
-    }
-
-    // allSubmissions uses task_no as keys (earlier code maps by task.task_no)
-    const previousTaskStatus = allSubmissions[previousTaskNo];
-    return previousTaskStatus === 'Submitted' || previousTaskStatus === 'Reviewed';
+    // // allSubmissions uses task_no as keys (earlier code maps by task.task_no)
+    // const previousTaskStatus = allSubmissions[previousTaskNo];
+    // return previousTaskStatus === 'Submitted' || previousTaskStatus === 'Reviewed';
   };
 
   // Fetch submission data when component mounts

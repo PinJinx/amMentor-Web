@@ -59,24 +59,23 @@ const TasksPageContent = () => {
 
     const isTaskUnlocked = useCallback((taskId: number): boolean => {
         if (ismentor) return true;
+        return true;
+        // if (taskId <= 0) return true;
         
-        if (taskId <= 0) return true;
+        // const previousTaskId = taskId - 1;
+        // const previousTask = tasks.find(task => task.task_no === previousTaskId);
         
-        const previousTaskId = taskId - 1;
-        const previousTask = tasks.find(task => task.task_no === previousTaskId);
+        // if (!previousTask) {
+        //     return false;
+        // }
         
-        if (!previousTask) {
-            return false;
-        }
+        // if (previousTask.deadline === null || previousTask.deadline === 0) {
+        //     return true;
+        // }
         
-        if (previousTask.deadline === null || previousTask.deadline === 0) {
-            return true;
-        }
-        
-        const previousTaskStatus = mySubmissions[previousTaskId];
-        const isUnlocked = previousTaskStatus === 'Submitted' || previousTaskStatus === 'Reviewed';
-        
-        return isUnlocked;
+        // const previousTaskStatus = mySubmissions[previousTaskId];
+        // const isUnlocked = previousTaskStatus === 'Submitted' || previousTaskStatus === 'Reviewed';
+        // return isUnlocked;
     }, [ismentor, mySubmissions, tasks]);
 
     const fetchTasks = useCallback(async (trackId?: number): Promise<Task[]> => {
@@ -260,10 +259,9 @@ const TasksPageContent = () => {
             } else if (!ismentor && Object.keys(mySubmissions).length > 0) {
                 const status = mySubmissions[task.task_no] || 'Not Started';
                 const unlocked = isTaskUnlocked(task.task_no);
-                
                 let displayStatus = status;
                 if (!unlocked) {
-                    displayStatus = `🔒 ${status}`;
+                    displayStatus = `${status}`;
                 } else if (task.deadline === null || task.deadline === 0) {
                     displayStatus = `${status} ⚡ (No deadline)`;
                 } else {

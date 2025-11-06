@@ -120,7 +120,7 @@ const MentorSection = ({
               className="w-full bg-dark-grey rounded-md p-3 md:p-4 min-h-[100px] md:min-h-[120px] text-sm md:text-base text-white-text mb-2 resize-none border-none outline-none"
             />
             <p className="text-xs text-gray-400 mb-4">
-              ✏️ These notes will be saved when you approve or reject the task.
+               These notes will be saved when you approve or reject the task.
             </p>
           </>
         ) : (
@@ -141,17 +141,16 @@ const MentorSection = ({
           </button>
         </div>
 
-        <div className="bg-dark-grey rounded-md p-2 md:p-3 flex items-center mb-8">
+        <button onClick={() => window.open("https://amfoss-in.gitbook.io/anveshan/", "_blank")} className="bg-dark-grey rounded-md p-2  md:p-3  w-full flex items-center mb-8">
           <div className="mr-3 md:mr-4">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 md:h-8 md:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
           <div>
-            <p className="font-semibold text-sm md:text-base text-white-text">Task Guidelines.pdf</p>
-            <p className="text-xs text-gray-400">Download</p>
+            <p className="font-semibold text-sm md:text-base text-white-text">Task Guidelines</p>
           </div>
-        </div>
+        </button>
 
         {/* Review Action Buttons */}
         {isMentor && isSubmittedForReview(taskStatus) && (

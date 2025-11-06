@@ -114,7 +114,7 @@ const ProfilePage = () => {
           </div>
         </div>
 
-        <div className="w-full space-y-4">
+        {/* <div className="w-full space-y-4">
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-semibold tracking-wide">BADGES EARNED</h2>
             <Link href="#" className="text-yellow-400 text-sm flex items-center gap-1 hover:underline">
@@ -126,7 +126,7 @@ const ProfilePage = () => {
               <div key={index} className="w-28 h-28 bg-[#4B4B4B] rounded-full flex-shrink-0" />
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

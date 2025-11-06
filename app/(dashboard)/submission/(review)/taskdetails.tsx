@@ -56,32 +56,32 @@ const TaskDetails = ({
   // Use the same logic as the main page for task unlocking
   const isCurrentTaskUnlocked = (currentTaskId: string): boolean => {
     if (isMentor) return true; // Mentors can access any task
-    
-    const currentId = parseInt(currentTaskId);
-    // Find the current task to get its task_no
-    const currentTask = tasks.find(task => task.id === currentId);
-    // If task metadata isn't loaded yet, allow by default to avoid false locks
-    if (!currentTask) return true;
+    return true;
+    // const currentId = parseInt(currentTaskId);
+    // // Find the current task to get its task_no
+    // const currentTask = tasks.find(task => task.id === currentId);
+    // // If task metadata isn't loaded yet, allow by default to avoid false locks
+    // if (!currentTask) return true;
 
-    if (currentTask.task_no <= 0) return true; // First task is always unlocked
+    // if (currentTask.task_no <= 0) return true; // First task is always unlocked
     
-    // Find the previous task by task_no
-    const previousTaskNo = currentTask.task_no - 1;
-    const previousTask = tasks.find(task => task.task_no === previousTaskNo);
+    // // Find the previous task by task_no
+    // const previousTaskNo = currentTask.task_no - 1;
+    // const previousTask = tasks.find(task => task.task_no === previousTaskNo);
     
-    // If previous task doesn't exist, don't unlock
-    if (!previousTask) {
-      return false;
-    }
+    // // If previous task doesn't exist, don't unlock
+    // if (!previousTask) {
+    //   return false;
+    // }
     
-    // CRITICAL FIX: If previous task has null deadline, current task is automatically unlocked
-    if (previousTask.deadline === null || previousTask.deadline === 0) {
-      return true;
-    }
+    // // CRITICAL FIX: If previous task has null deadline, current task is automatically unlocked
+    // if (previousTask.deadline === null || previousTask.deadline === 0) {
+    //   return true;
+    // }
     
-    // Otherwise, check if previous task is completed using task_no
-    const previousTaskStatus = allSubmissions[previousTaskNo];
-    return previousTaskStatus === 'Submitted' || previousTaskStatus === 'Reviewed';
+    // // Otherwise, check if previous task is completed using task_no
+    // const previousTaskStatus = allSubmissions[previousTaskNo];
+    // return previousTaskStatus === 'Submitted' || previousTaskStatus === 'Reviewed';
   };
 
   const getBlockedTaskMessage = (currentTaskId: string): string => {
