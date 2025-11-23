@@ -240,7 +240,7 @@ const MentorDashboard = () => {
                     ...menteeDetail,
                     position: menteeIndex + 1 // Add 1 because array is 0-indexed but rank starts from 1
                 });
-            } else {
+            } else {          <PlayerStats rank={1} points={500} />
                 // Set default values if mentee not found in leaderboard
                 setMenteeDetails({
                     mentee_name: menteeName,

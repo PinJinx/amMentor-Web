@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import MenteeDashboard from "./(dashboards)/Mentee";
 import MentorDashboard from "./(dashboards)/Mentor";
+import AdminDashboard from "./(dashboards)/Admin";
 
 const DashboardPage = () => {
     const { userRole, isLoggedIn, isInitialized } = useAuth();
@@ -31,8 +32,8 @@ const DashboardPage = () => {
     if (!isLoggedIn) {
         return null; 
     }
-
-    return ismentor ? <MentorDashboard /> : <MenteeDashboard />;
+    return <AdminDashboard/>
+    //return ismentor ? <MentorDashboard /> : <MenteeDashboard />;
 };
 
 export default DashboardPage;
