@@ -78,28 +78,58 @@ export default function TrackSelectionPage() {
   }
 
   return (
-    <div className="flex flex-col items-center w-full">
-      <h1 className="text-2xl font-semibold text-white mb-5">Select a Track</h1>
-      <div className="w-full space-y-4">
-        {tracks.map((track) => {
-          const IconComponent = track.icon;
-          return (
-            <button
-              key={track.id}
-              onClick={() => handleTrackSelect(track.id)}
-              className={`flex justify-start items-center  w-full pl-5 px-24 py-2 rounded-3xl shadow-lg transition-colors duration-200 ${
-                selectedTrack === track.id 
-                  ? 'bg-[#464646] text-yellow-400' 
-                  : 'bg-[#464646] text-yellow-400 hover:bg-yellow-400 hover:text-black'
-              }`}
-            >
-              <span className="flex justify-center items-center min-w-8 mr-4">
-                <IconComponent size={26} className="transition-colors duration-200"/>
-              </span>
-              <span className="font-medium">{track.name}</span>
-            </button>
-          );
-        })}
+    <div className="w-full max-w-[360px] mx-auto">
+      <div className="space-y-6">
+        <div>
+          <div className="text-v1-text-white flex justify-center items-center text-4xl font-bold">
+            amMENT<span className="text-v1-primary-yellow">&lt;&gt;</span>R
+          </div>
+
+          <div className="text-center mt-3">
+            <p className="text-v1-text-muted text-[11px] tracking-[0.15em] uppercase font-medium">
+              Select a Track
+            </p>
+          </div>
+        </div>
+        <div className="space-y-3">
+          {tracks.map((track) => {
+            const IconComponent = track.icon;
+            const active = selectedTrack === track.id;
+
+            return (
+              <button
+                key={track.id}
+                onClick={() => handleTrackSelect(track.id)}
+                className={`
+                  w-full flex items-center px-4 py-3.5 rounded-xl
+                  border transition-all
+                  ${
+                    active
+                      ? "bg-v1-primary-yellow text-black border-v1-primary-yellow"
+                      : "bg-v1-bg-input text-v1-text-white border-v1-bg-hover hover:border-v1-bg-hover-strong"
+                  }
+                `}
+              >
+                <div
+                  className={`
+                    w-9 h-9 rounded-full flex items-center justify-center mr-4
+                    ${
+                      active
+                        ? "bg-black text-v1-primary-yellow"
+                        : "bg-v1-bg-hover text-v1-primary-yellow"
+                    }
+                  `}
+                >
+                  <IconComponent size={18} />
+                </div>
+
+                <span className="text-[15px] font-medium">
+                  {track.name}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
