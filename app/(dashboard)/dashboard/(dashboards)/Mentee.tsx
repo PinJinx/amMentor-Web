@@ -78,36 +78,33 @@ const MenteeDashboard = () => {
             return status !== 'Submitted' && status !== 'Reviewed';
         });
         
-        // Return the first (lowest task_no) pending task
+        // Return the first (lowest task_ngetFo) pending task
         return pendingTasks.length > 0 ? pendingTasks[0] : null;
     }, [tasks, mySubmissions, isTaskUnlocked]);
 
-    const getFormattedTasks = (): string[][] => {
+
+    const getFormattedTasks = () => {
         return tasks.map((task) => {
             const status = mySubmissions[task.task_no] || 'Not Started';
             const unlocked = isTaskUnlocked(task.task_no);
-            
-            let displayStatus = status;
-            if (!unlocked) {
-                displayStatus = `🔒 ${status}`;
-            }
-            
-            return [(task.task_no + 1).toString(), task.title, displayStatus];
+            return {
+                id: task.id,
+                task_no: task.task_no,
+                title: task.title,
+                status: unlocked ? status : `🔒 ${status}`
+            };
         });
     };
 
-    const getUpcomingTasks = (): string[][] => {
-        const formattedTasks = getFormattedTasks();
-        return formattedTasks.filter(task => {
-            const status = task[2];
-            // Show only locked tasks and not started/in progress unlocked tasks (exclude submitted and reviewed)
-            return status.includes('🔒') || (status === 'Not Started' || status === 'In Progress' || status === 'Paused');
+    const getUpcomingTasks = () => {
+        return getFormattedTasks().filter(task => {
+            const status = task.status;
+            return status.includes('🔒') || ['Not Started', 'In Progress', 'Paused'].includes(status);
         });
     };
-    
-    const getReviewedTasks = (): string[][] => {
-        const formattedTasks = getFormattedTasks();
-        return formattedTasks.filter(task => task[2] === 'Reviewed');
+
+    const getReviewedTasks = () => {
+        return getFormattedTasks().filter(task => task.status === 'Reviewed');
     };
 
     const fetchMySubmissions = useCallback(async (tasksList: Task[], trackId: number) => {
@@ -215,11 +212,13 @@ const MenteeDashboard = () => {
         <div className="text-white p-4 md:p-2 lg:p-0">
             <div className="h-full w-full m-auto py-4 md:py-7 scrollbar-hide max-w-[80rem]">
                 <div className="flex flex-col sm:flex-row justify-between">
-                    <div className="flex text-xl sm:text-2xl md:text-3xl gap-1 mb-4 sm:mb-0">
-                        <h1>Welcome, </h1>
-                        <h1 className="text-primary-yellow">Mentee</h1>
-                    </div>
-                    <Link href="/track" className="text-primary-yellow underline mb-6 sm:mb-0">
+                <div>
+                    <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2">
+                        Welcome, <span className="text-v1-primary-yellow">Mentee</span>
+                    </h1>
+                    <p className="text-gray-400 text-sm">Keep up the momentum. The next milestone is close!</p>
+                </div>
+                    <Link href="/track" className="text-v1-primary-yellow font-bold pt-8 uppercase mb-6 sm:mb-0">
                         Change Track
                     </Link>
                 </div>
@@ -237,11 +236,10 @@ const MenteeDashboard = () => {
                     </div>
                     <div className="flex flex-col gap-2 w-full lg:w-[46%]">
                         <UpcomingTask isLoading={loading} upcoming_tasks={getUpcomingTasks()} />
-                        <FeedbackProvided 
+                        {/* <FeedbackProvided 
                             selectedMentee={localStorage.getItem('name') || ''}
                             menteeSubmissions={{ [localStorage.getItem('name') || '']: myFullSubmissions }}
-                            tasks={tasks}
-                        />
+                        /> */}
                         {/* <Badges /> */}
                     </div>
                 </div>
